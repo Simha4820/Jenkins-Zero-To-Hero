@@ -20,6 +20,12 @@ pipeline {
         sh 'node --version'
       }
     }
+    stage('Install curl') {
+      steps {
+        // Install curl
+        sh 'apk add --no-cache curl'
+      }
+    }
     stage('Run App') {
       steps {
        // Run the app in detached mode

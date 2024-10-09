@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    docker { image 'node:16-alpine' }
+    docker { image 'ubuntu:22.04' } // Specify the desired Ubuntu version
   }
   environment {
     GIT_URL = 'https://github.com/Simha4820/plugins.git'
@@ -13,22 +13,33 @@ pipeline {
         git branch: 'main', url: "${GIT_URL}"
       }
     }
-    
+    stage('Install Node.js and curl') {
+      steps {
+        // Update package list and install Node.js, npm, and curl
+        sh '''
+          apt-get update
+          apt-get install -y curl
+          curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+          apt-get install -y nodejs
+        '''
+      }
+    }
+    stage('Install Dependencies') {
+      steps {
+        // Install npm dependencies (if any)
+        // Uncomment the line below if there are npm dependencies
+        // sh 'npm install'
+      }
+    }
     stage('Test') {
       steps {
         // Check Node.js version
         sh 'node --version'
       }
     }
-    stage('Install curl') {
-      steps {
-        // Install curl as root
-        sh 'apk add --no-cache --virtual .build-deps curl'
-      }
-    }
     stage('Run App') {
       steps {
-       // Run the app in detached mode
+        // Run the app in detached mode
         sh "nohup node ${APP_FILE} > app.log 2>&1 &"
         
         // Optional: Wait a few seconds for the app to start
@@ -40,5 +51,3 @@ pipeline {
     }
   }
 }
-
-

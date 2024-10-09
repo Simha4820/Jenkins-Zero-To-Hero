@@ -2,11 +2,35 @@ pipeline {
   agent {
     docker { image 'node:16-alpine' }
   }
+  environment {
+    GIT_URL = 'https://github.com/Simha4820/plugins.git'
+    APP_FILE = 'app.js' // Adjust this if the file name is different
+  }
   stages {
+    stage('Checkout Code') {
+      steps {
+        // Checkout the app from GitHub
+        git branch: 'main', url: "${GIT_URL}"
+      }
+    }
+    stage('Install Dependencies') {
+      steps {
+        // Install npm dependencies (if any)
+        sh 'npm install'
+      }
+    }
     stage('Test') {
       steps {
+        // Check Node.js version
         sh 'node --version'
+      }
+    }
+    stage('Run App') {
+      steps {
+        // Run the app
+        sh "node ${APP_FILE}"
       }
     }
   }
 }
+

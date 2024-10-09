@@ -16,6 +16,7 @@ pipeline {
     stage('Install Dependencies') {
       steps {
         // Install npm dependencies (if any)
+        // Uncomment the line below if there are npm dependencies
         // sh 'npm install'
       }
     }
@@ -29,11 +30,12 @@ pipeline {
       steps {
         // Run the app
         sh "node ${APP_FILE}"
-      }
-      steps {
-        // Check if app is working
+        
+        // Check if app is working by making a request
         sh "curl http://localhost:3000"
+      }
     }
   }
 }
+
 

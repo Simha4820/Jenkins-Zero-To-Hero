@@ -7,7 +7,6 @@ pipeline {
   }
   environment {
     GIT_URL = 'https://github.com/Simha4820/plugins.git'
-    APP_FILE = 'app.js' // Adjust this if the file name is different
   }
   stages {
     stage('Checkout Code') {
@@ -30,20 +29,14 @@ pipeline {
     
     stage('Test') {
       steps {
-        // Check Node.js version
-        sh 'node --version'
+        // Check Python version
+        sh 'Python --version'
       }
     }
     stage('Run App') {
       steps {
         // Run the app in detached mode
-        sh "nohup node ${APP_FILE} > app.log 2>&1 &"
-        
-        // Optional: Wait a few seconds for the app to start
-        sleep(time: 5, unit: 'SECONDS')
-        
-        // Check if app is working by making a request
-        sh "curl http://localhost:3000"
+        sh "python3 app.py"
       }
     }
   }

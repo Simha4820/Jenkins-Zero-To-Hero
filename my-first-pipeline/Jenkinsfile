@@ -1,6 +1,7 @@
 pipeline {
   agent {
     docker { image 'ubuntu:22.04' } // Specify the desired Ubuntu version
+    args '-u root'
   }
   environment {
     GIT_URL = 'https://github.com/Simha4820/plugins.git'

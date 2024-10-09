@@ -17,10 +17,10 @@ pipeline {
       steps {
         // Update package list and install Node.js, npm, and curl
         sh '''
-          apt-get update
-          apt-get install -y curl
-          curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-          apt-get install -y nodejs
+          sudo apt-get update
+          sudo apt-get install -y curl
+          sudo curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+          sudo apt-get install -y nodejs
         '''
       }
     }

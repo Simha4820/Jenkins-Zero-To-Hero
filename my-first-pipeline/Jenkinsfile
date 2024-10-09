@@ -24,13 +24,7 @@ pipeline {
         '''
       }
     }
-    stage('Install Dependencies') {
-      steps {
-        // Install npm dependencies (if any)
-        // Uncomment the line below if there are npm dependencies
-        // sh 'npm install'
-      }
-    }
+    
     stage('Test') {
       steps {
         // Check Node.js version

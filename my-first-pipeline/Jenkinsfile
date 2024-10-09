@@ -15,22 +15,10 @@ pipeline {
         git branch: 'main', url: "${GIT_URL}"
       }
     }
-    stage('Install Node.js and curl') {
-      steps {
-        // Update package list and install Node.js, npm, and curl
-        sh '''
-          apt-get update
-          apt-get install -y curl
-          curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-          apt-get install -y nodejs
-        '''
-      }
-    }
-    
     stage('Test') {
       steps {
         // Check Python version
-        sh 'Python --version'
+        sh 'python --version'
       }
     }
     stage('Run App') {

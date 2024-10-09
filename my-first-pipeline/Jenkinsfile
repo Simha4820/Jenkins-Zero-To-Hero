@@ -15,6 +15,14 @@ pipeline {
         git branch: 'main', url: "${GIT_URL}"
       }
     }
+    stage('Install Dependencies') {
+            steps {
+                sh '''
+                    apt-get update
+                    apt-get install -y python3 python3-pip
+                '''
+            }
+        }
     stage('Test') {
       steps {
         // Check Python version

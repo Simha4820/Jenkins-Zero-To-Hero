@@ -22,8 +22,8 @@ pipeline {
     }
     stage('Install curl') {
       steps {
-        // Install curl
-        sh 'apk add --no-cache curl'
+        // Install curl as root
+        sh 'apk add --no-cache --virtual .build-deps curl'
       }
     }
     stage('Run App') {

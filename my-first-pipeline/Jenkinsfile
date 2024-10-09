@@ -17,14 +17,20 @@ pipeline {
       steps {
         // Update package list and install Node.js, npm, and curl
         sh '''
-          sudo apt-get update
-          sudo apt-get install -y curl
-          sudo curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-          sudo apt-get install -y nodejs
+          apt-get update
+          apt-get install -y curl
+          curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+          apt-get install -y nodejs
         '''
       }
     }
-    
+    stage('Install Dependencies') {
+      steps {
+        // Install npm dependencies (if any)
+        // Uncomment the line below if there are npm dependencies
+        // sh 'npm install'
+      }
+    }
     stage('Test') {
       steps {
         // Check Node.js version

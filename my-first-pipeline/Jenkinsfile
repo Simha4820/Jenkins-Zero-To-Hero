@@ -22,8 +22,11 @@ pipeline {
     }
     stage('Run App') {
       steps {
-        // Run the app
-        sh "node ${APP_FILE}"
+       // Run the app in detached mode
+        sh "nohup node ${APP_FILE} > app.log 2>&1 &"
+        
+        // Optional: Wait a few seconds for the app to start
+        sleep(time: 5, unit: 'SECONDS')
         
         // Check if app is working by making a request
         sh "curl http://localhost:3000"
